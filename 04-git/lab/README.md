@@ -23,7 +23,7 @@ Vagrant.configure("2") do |config|
   SHELL
 end
 ```
-Notes:
+GERALD Notes:
 
 In this I create a new directory and a new Vagrantfile with 
 
@@ -183,6 +183,8 @@ the `-m` flag, or leave that off and git will drop you into the system
 default editor to write one. That is normally vim (the command to quit
 is press the escape key then `ZZ`). You can change the default editor by
 setting *environment variables* with command `export EDITOR=nano`.
+
+(GERALD Notes: idk how to use -m)
 
 If you want to keep this setting when you relaunch your shell next time
 you log in, then the export line has to go in a file called `.profile`
