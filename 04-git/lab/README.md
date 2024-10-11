@@ -23,6 +23,17 @@ Vagrant.configure("2") do |config|
   SHELL
 end
 ```
+Notes:
+
+In this I create a new directory and a new Vagrantfile with 
+
+mkdir LAB_GIT
+touch Vagrantfile
+nano Vagrantfile (Copy the code here)
+vagrant up
+vagrant ssh
+
+
 
 ## [Git documentation](#git-documentation)
 
