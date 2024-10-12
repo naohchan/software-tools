@@ -25,7 +25,8 @@ end
 ```
 
 
-```GERALD Notes:
+```
+GERALD Notes:
 
 In this I create a new directory and a new Vagrantfile with 
 
