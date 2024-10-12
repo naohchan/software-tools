@@ -23,7 +23,9 @@ Vagrant.configure("2") do |config|
   SHELL
 end
 ```
-GERALD Notes:
+
+
+```GERALD Notes:
 
 In this I create a new directory and a new Vagrantfile with 
 
@@ -32,6 +34,7 @@ In this I create a new directory and a new Vagrantfile with
 - nano Vagrantfile (Copy the code here)
 - vagrant up
 - vagrant ssh
+```
 
 
 
