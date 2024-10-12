@@ -23,7 +23,7 @@ Vagrant.configure("2") do |config|
   SHELL
 end
 ```
-# [Hi](#git)
+# [Gerald notes: ](#git)
 
 ```
 GERALD Notes:
