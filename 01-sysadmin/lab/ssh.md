@@ -32,7 +32,10 @@ Try the following:
   * When prompted, enter your university password and press ENTER.
   * You should now see the prompt on seis, which looks something like `[USERNAME@seis-shell ~]$`. Try the command `uname -a` to print information about the system (uname on its own prints the operating system name, `-a` shows "all" information). The reply line should start `Linux seis-shell`, which is the operating system and host name.
   * On the seis prompt, type `ssh rd-mvb-linuxlab.bristol.ac.uk`. This might take a few seconds; say yes if it asks you if you're sure, then enter your password again when prompted. We didn't have to give a username again because you are already logged in to seis with your university username (`whoami` shows this) and when you ssh without giving a username, it uses the one you are currently logged in as.
-  * You should now be connected to a lab machine, with a prompt of the form `USERNAME@it######:~$`. 
+  * You should now be connected to a lab machine, with a prompt of the form `USERNAME@it######:~$`.
+
+`nu24692@it######:~$`.
+
   * Try `whoami` and `uname -a` to check who you are logged in as, and where; also try `hostname` which just prints the machine name.
   * Type `exit` twice to get back to your own machine. (Once gets you back to seis, twice closes the ssh connection completely.)
 
