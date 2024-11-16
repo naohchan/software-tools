@@ -45,6 +45,12 @@ Connecting to one machine through another machine (in this case seis) as a proxy
 ssh -J USERNAME@seis.bris.ac.uk USERNAME@rd-mvb-linuxlab.bristol.ac.uk
 ```
 
+
+```
+ssh -J nu24692@seis.bris.ac.uk nu24692@rd-mvb-linuxlab.bristol.ac.uk
+```
+
+
 The `-J` for "jump through this host" even accepts a comma-separated list of hosts if you need to connect through more than one. However, you need to repeat your username for every machine.
 
 You now know how to log in to a lab machine, but in both methods you had to type your password twice - let's make that easier. The answer is not to store your password in a file, but to use keys instead.
