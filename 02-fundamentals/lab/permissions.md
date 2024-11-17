@@ -88,6 +88,38 @@ brian@debian12:~$ pwd
 
 Next, create a user `nigel` (or some other name) add both your two new users, but not `vagrant`, to the group `users` (which already exists) using the command `sudo usermod -aG GROUPNAME USERNAME`, where group and username are changed accordingly. Note: `brian` cannot use sudo, so you have to exit his terminal to get back to one running as the user `vagrant` for this.
 
+```sh
+
+vagrant@debian12:/home$ ls
+brian  nigel  vagrant
+
+vagrant@debian12:/home$ cd vagrant
+
+vagrant@debian12:~$ sudo adduser nigel
+Adding user `nigel' ...
+Adding new group `nigel' (1002) ...
+Adding new user `nigel' (1002) with group `nigel (1002)' ...
+Creating home directory `/home/nigel' ...
+Copying files from `/etc/skel' ...
+New password: 
+Retype new password: 
+passwd: password updated successfully
+Changing the user information for nigel
+Enter the new value, or press ENTER for the default
+	Full Name []: 
+	Room Number []: 
+	Work Phone []: 
+	Home Phone []: 
+	Other []: 
+Is the information correct? [Y/n] y
+Adding new user `nigel' to supplemental / extra groups `users' ...
+Adding user `nigel' to group `users' ...
+
+vagrant@debian12:~$ sudo usermod -aG users brian
+
+vagrant@debian12:~$ sudo usermod -aG users nigel
+
+```
 ## Explore file permissions
 
 As user `brian` (or whatever you called your first new user), set up your home directory using what you learnt in the videos so that
