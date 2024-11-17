@@ -26,18 +26,21 @@ Try running the program with the following commands:
     ./arguments hello
     ./arguments one two three
 
-I got the following results
+#I got the following results
 ```C
 vagrant@debian12:~$ ./arguments
 Argument #0: [./arguments]
+
 vagrant@debian12:~$ ./arguments hello
 Argument #0: [./arguments]
 Argument #1: [hello]
+
 vagrant@debian12:~$ ./arguments one two three
 Argument #0: [./arguments]
 Argument #1: [one]
 Argument #2: [two]
 Argument #3: [three]
+
 ```
 
 
