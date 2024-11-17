@@ -26,7 +26,7 @@ Try running the program with the following commands:
     ./arguments hello
     ./arguments one two three
 
-# I got the following results
+### I got the following results
 ```C
 vagrant@debian12:~$ ./arguments
 Argument #0: [./arguments]
