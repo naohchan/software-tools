@@ -31,8 +31,51 @@ Adding user `brian' to group `users' ...
 
 Check the user and group files with `tail /etc/passwd` and `tail /etc/group` to check that the new user has been created - `tail` displays the last 10 lines of a file by default; `tail -n N FILE` would display the last N lines. Your new user `brian` (or whatever you called them) should appear in both files. Also check with `ls -l /home` that the home directory for Brian exists and is set to the correct user and group.
 
+```sh
+vagrant@debian12:~$ tail /etc/passwd
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+systemd-network:x:998:998:systemd Network Management:/:/usr/sbin/nologin
+systemd-timesync:x:997:997:systemd Time Synchronization:/:/usr/sbin/nologin
+messagebus:x:100:107::/nonexistent:/usr/sbin/nologin
+sshd:x:101:65534::/run/sshd:/usr/sbin/nologin
+vagrant:x:1000:1000:vagrant,,,:/home/vagrant:/bin/bash
+memcache:x:102:110:Memcached,,,:/nonexistent:/bin/false
+postfix:x:103:112::/var/spool/postfix:/usr/sbin/nologin
+vboxadd:x:999:2::/var/run/vboxadd:/sbin/nologin
+brian:x:1001:1001:,,,:/home/brian:/bin/bash
 
+vagrant@debian12:~$ tail /etc/group
+_ssh:x:108:
+vagrant:x:1000:
+plocate:x:109:
+memcache:x:110:
+ssl-cert:x:111:
+postfix:x:112:
+postdrop:x:113:
+vboxsf:x:996:
+vboxdrmipc:x:995:
+brian:x:1001:
 
+vagrant@debian12:~$ tail -n 5 /etc/passwd
+vagrant:x:1000:1000:vagrant,,,:/home/vagrant:/bin/bash
+memcache:x:102:110:Memcached,,,:/nonexistent:/bin/false
+postfix:x:103:112::/var/spool/postfix:/usr/sbin/nologin
+vboxadd:x:999:2::/var/run/vboxadd:/sbin/nologin
+brian:x:1001:1001:,,,:/home/brian:/bin/bash
+
+vagrant@debian12:~$ tail -n 5 /etc/group
+postfix:x:112:
+postdrop:x:113:
+vboxsf:x:996:
+vboxdrmipc:x:995:
+brian:x:1001:
+
+vagrant@debian12:~$ ls -l /home
+total 8
+drwx------ 2 brian   brian   4096 Nov 17 11:51 brian
+drwx------ 8 vagrant vagrant 4096 Nov 17 11:50 vagrant
+
+```
 Time to change user: `su brian` and enter the password. Notice that the prompt has changed to `brian@debian12:/home/vagrant$` (at least if you started off in that folder). So the user has changed, and because `/home/vagrant` is no longer the current user's home directory, it gets written out in full. Run `cd` to go home followed by `pwd` and check that you are now in `/home/brian` or whatever you called your new user.
 
 Next, create a user `nigel` (or some other name) add both your two new users, but not `vagrant`, to the group `users` (which already exists) using the command `sudo usermod -aG GROUPNAME USERNAME`, where group and username are changed accordingly. Note: `brian` cannot use sudo, so you have to exit his terminal to get back to one running as the user `vagrant` for this.
