@@ -7,7 +7,7 @@ Log in to your Debian VM for the following exercises.
 Create a new user with `sudo adduser NAME` - I'm going to be using `brian` as an example name in these notes. When it asks for a password, you can just use `brian` or something; it will complain about the password being too short but it will create the user anyway. You can skip the GECOS information asking for a full name and phone number---it's just to help an admin contact you if needed.
 
 ### Response
-```C
+```
 vagrant@debian12:~$ sudo adduser brian
 Adding user `brian' ...
 Adding new group `brian' (1001) ...
@@ -27,7 +27,7 @@ Enter the new value, or press ENTER for the default
 Is the information correct? [Y/n] y
 Adding new user `brian' to supplemental / extra groups `users' ...
 Adding user `brian' to group `users' ...
-'''
+```
 
 Check the user and group files with `tail /etc/passwd` and `tail /etc/group` to check that the new user has been created - `tail` displays the last 10 lines of a file by default; `tail -n N FILE` would display the last N lines. Your new user `brian` (or whatever you called them) should appear in both files. Also check with `ls -l /home` that the home directory for Brian exists and is set to the correct user and group.
 
