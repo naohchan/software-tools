@@ -139,6 +139,43 @@ users:x:100:vagrant,brian,nigel
 
 As user `brian` (or whatever you called your first new user), set up your home directory using what you learnt in the videos so that
 
+```sh
+brian@debian12:/home$ chmod +040 /home/brian
+brian@debian12:/home$ ls -la
+total 20
+drwxr-xr-x  5 root    root    4096 Nov 17 12:12 .
+drwxr-xr-x 19 root    root    4096 Nov 16 13:36 ..
+d---rw----  3 brian   users   4096 Nov 17 12:35 brian
+drwx------  2 nigel   nigel   4096 Nov 17 12:12 nigel
+drwx------  8 vagrant vagrant 4096 Nov 17 11:50 vagrant
+brian@debian12:/home$ chmod +700 /home/brian
+brian@debian12:/home$ ls -la
+total 20
+drwxr-xr-x  5 root    root    4096 Nov 17 12:12 .
+drwxr-xr-x 19 root    root    4096 Nov 16 13:36 ..
+drwxrw----  3 brian   users   4096 Nov 17 12:35 brian
+drwx------  2 nigel   nigel   4096 Nov 17 12:12 nigel
+drwx------  8 vagrant vagrant 4096 Nov 17 11:50 vagrant
+brian@debian12:/home$ chmod +000 /home/brian
+brian@debian12:/home$ ls -la
+total 20
+drwxr-xr-x  5 root    root    4096 Nov 17 12:12 .
+drwxr-xr-x 19 root    root    4096 Nov 16 13:36 ..
+drwxrw----  3 brian   users   4096 Nov 17 12:35 brian
+drwx------  2 nigel   nigel   4096 Nov 17 12:12 nigel
+drwx------  8 vagrant vagrant 4096 Nov 17 11:50 vagrant
+brian@debian12:/home$ chmod -060 /home/brian
+brian@debian12:/home$ ls -la
+total 20
+drwxr-xr-x  5 root    root    4096 Nov 17 12:12 .
+drwxr-xr-x 19 root    root    4096 Nov 16 13:36 ..
+drwx------  3 brian   users   4096 Nov 17 12:35 brian
+drwx------  2 nigel   nigel   4096 Nov 17 12:12 nigel
+drwx------  8 vagrant vagrant 4096 Nov 17 11:50 vagrant
+
+```
+
+
   * You can do everything (rwx).
   * Members of the `users` group can list files and change to your home directory, but not add/remove files. You will need to change the group of your home directory to `users` for this, using the command `chgrp -R GROUPNAME DIRECTORY`.
   * Everyone else cannot do anything with your home directory.
