@@ -134,6 +134,23 @@ Argument #1: [Hello world!]
 
 The command `rm` (remove) deletes files again. Use it to remove your file with spaces in its name, using one of several methods to get the shell to pass the spaces through to `rm`.
 
+### Response
+
+```C
+
+vagrant@debian12:~/lab02$ ls Hello\ world\! 
+'Hello world!'
+
+vagrant@debian12:~/lab02$ ./arguments \Hello\ world!
+Argument #0: [./arguments]
+Argument #1: [Hello world!]
+
+vagrant@debian12:~/lab02$ ./arguments Hello\ world\! 
+Argument #0: [./arguments]
+Argument #1: [Hello world!]
+
+```
+
 ## Shell variables
 
 In the shell, `VARIABLE=VALUE` sets a variable to a value and `$VARIABLE` retrieves its value. For example, to save typing a filename twice:
