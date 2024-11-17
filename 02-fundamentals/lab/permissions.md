@@ -119,7 +119,7 @@ vagrant@debian12:~$ sudo usermod -aG users brian
 
 vagrant@debian12:~$ sudo usermod -aG users nigel
 
-//lets check!
+
 vagrant@debian12:/home$ groups nigel
 nigel : nigel users
 vagrant@debian12:/home$ id nigel
