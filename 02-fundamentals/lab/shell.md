@@ -76,6 +76,8 @@ Try the following:
   * Make an empty subfolder with `mkdir empty`, switch to it with `cd empty` and then run `../arguments *`. Since you are now in the subfolder, we need two dots at the start to say "run the program arguments from the folder _above_". What happens?
 
 ### Response
+
+```C
 vagrant@debian12:~/lab02$ ./arguments *
 Argument #0: [./arguments]
 Argument #1: [arguments]
@@ -86,7 +88,8 @@ vagrant@debian12:~/lab02/empty$ ../arguments *
 
 Argument #0: [../arguments]
 Argument #1: [*]
-  
+```
+
   * Go back to the folder with the program by running `cd ..` and then do `ls` to check you're back in the right folder. In this folder, find three different ways to get the program to produce the following output:
 
 ```
@@ -95,6 +98,7 @@ Argument #1: [*]
 ```
 ### Response
 
+```C
 vagrant@debian12:~/lab02$ ./arguments "*"
 Argument #0: [./arguments]
 Argument #1: [*]
@@ -114,6 +118,8 @@ Argument #1: [*]
 vagrant@debian12:~/lab02$ ./arguments ""'*'""
 Argument #0: [./arguments]
 Argument #1: [*]
+
+```
 
 ## Files with spaces in their names
 
