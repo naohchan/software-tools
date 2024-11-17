@@ -43,17 +43,30 @@ Argument #3: [three]
 
 ```
 
-
-
-
-
 Now that you are familiar with what the program does, try the following:
 
     ./arguments one       two
     ./arguments "one two"
     ./arguments "one      two"
 
+### I got the following results
+```C
+vagrant@debian12:~$ ./arguments one   two
+Argument #0: [./arguments]
+Argument #1: [one]
+Argument #2: [two]
+vagrant@debian12:~$ ./arguments "one two"
+Argument #0: [./arguments]
+Argument #1: [one two]
+vagrant@debian12:~$ ./arguments "one         two"
+Argument #0: [./arguments]
+Argument #1: [one         two]
+```
+
 How, based on these examples, does the shell handle whitespace in the line you type?
+
+### Response
+Just when I use space inside "".
 
 ## Pattern matching
 
