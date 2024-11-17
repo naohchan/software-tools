@@ -78,6 +78,14 @@ drwx------ 8 vagrant vagrant 4096 Nov 17 11:50 vagrant
 ```
 Time to change user: `su brian` and enter the password. Notice that the prompt has changed to `brian@debian12:/home/vagrant$` (at least if you started off in that folder). So the user has changed, and because `/home/vagrant` is no longer the current user's home directory, it gets written out in full. Run `cd` to go home followed by `pwd` and check that you are now in `/home/brian` or whatever you called your new user.
 
+```sh
+vagrant@debian12:~$ su brian
+Password: 
+brian@debian12:/home/vagrant$ cd
+brian@debian12:~$ pwd
+/home/brian
+```
+
 Next, create a user `nigel` (or some other name) add both your two new users, but not `vagrant`, to the group `users` (which already exists) using the command `sudo usermod -aG GROUPNAME USERNAME`, where group and username are changed accordingly. Note: `brian` cannot use sudo, so you have to exit his terminal to get back to one running as the user `vagrant` for this.
 
 ## Explore file permissions
