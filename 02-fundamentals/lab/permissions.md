@@ -7,7 +7,7 @@ Log in to your Debian VM for the following exercises.
 Create a new user with `sudo adduser NAME` - I'm going to be using `brian` as an example name in these notes. When it asks for a password, you can just use `brian` or something; it will complain about the password being too short but it will create the user anyway. You can skip the GECOS information asking for a full name and phone number---it's just to help an admin contact you if needed.
 
 ### Response
-```
+```s
 vagrant@debian12:~$ sudo adduser brian
 Adding user `brian' ...
 Adding new group `brian' (1001) ...
