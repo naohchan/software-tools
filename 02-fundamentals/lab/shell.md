@@ -193,3 +193,13 @@ Note that this does not work as expected either:
     file=arguments gcc -Wall "$file.c" -o "$file"
 
 The problem here is that the shell first reads the line and substitutes in the value of `$file` (unset variables expand to the empty string by default) before starting to execute the command, so you are reading the variable's value before writing it. Leaving off the quotes doesn't help: you need to set the variable on a separate line.
+
+### Response
+
+```C
+vagrant@debian12:~/lab02$ file=arguments
+vagrant@debian12:~/lab02$ gcc -Wall "$file.c" -o "$file"
+vagrant@debian12:~/lab02$ ls
+ arguments   arguments.c   empty  'Hello world!'  'silly named file'
+```
+
