@@ -119,6 +119,21 @@ vagrant@debian12:~$ sudo usermod -aG users brian
 
 vagrant@debian12:~$ sudo usermod -aG users nigel
 
+//lets check!
+vagrant@debian12:/home$ groups nigel
+nigel : nigel users
+vagrant@debian12:/home$ id nigel
+uid=1002(nigel) gid=1002(nigel) groups=1002(nigel),100(users)
+
+vagrant@debian12:/home$ grep '^users:' /etc/group
+users:x:100:vagrant,brian,nigel
+
+vagrant@debian12:/home$ cat /etc/group
+...
+users:x:100:vagrant,brian,nigel
+...
+
+
 ```
 ## Explore file permissions
 
