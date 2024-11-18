@@ -571,6 +571,53 @@ Edit the sudoers file with `visudo` as root, and add the following line:
 
 and save the sudoers file.
 
+###Response
+
+```c
+
+brian@debian12:~$ sudo ls
+[sudo] password for brian: 
+brian is not in the sudoers file.
+This incident has been reported to the administrator.
+
+brian@debian12:~$ su vagrant
+Password:
+
+vagrant@debian12:/home/brian$ sudo cat /etc/sudoers
+#
+# This file MUST be edited with the 'visudo' command as root.
+#
+# Please consider adding local content in /etc/sudoers.d/ instead of
+# directly modifying this file.
+.
+.
+.
+
+vagrant@debian12:/home/brian$ cd
+
+vagrant@debian12:~$ cd /etc/sudoers.d
+
+vagrant@debian12:/etc/sudoers.d$ ls
+README  vagrant
+
+vagrant@debian12:/etc/sudoers.d$ nano vagrant
+
+vagrant@debian12:/etc/sudoers.d$ sudo nano vagrant
+
+vagrant@debian12:/etc/sudoers.d$ sudo cat /etc/sudoers
+#
+# This file MUST be edited with the 'visudo' command as root.
+#
+.
+.
+.
+
+vagrant@debian12:/etc/sudoers.d$ sudo visudo /etc/sudoers
+
+
+```
+
+
 **Warning:**: Never edit `/etc/sudoers` directly and *always* use `visudo` instead.  If you make a mistake and add a syntax error to the file then `sudo` will refuse to work.  If your root account doesn't have a password (some people don't like that as a security precaution) then you'll have to spend the next half-hour figuring out how to break into your own computer and wrestle back control.  There is almost always a command to check a config file before replacing the current one: the same advice also applies to the ssh config files.  If you break them you might have to travel to wherever the server is with a keyboard and a monitor.
 
 You can now switch back to `brian` (check the prompt to make sure you are Brian) and do `sudo reboot`. After asking for Brian's password, the virtual machine will now reboot, which you notice because you get kicked out of your ssh connection. Another `vagrant ssh` after a few seconds will get you back in again.
