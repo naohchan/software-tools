@@ -507,7 +507,7 @@ You might get some errors relating to `/proc` files, which you can ignore: these
 
 Apart from `message-brian`, you'll find a few files by default: `sudo`, `mount`, `umount` and `su`. The first one you already know; look up what the next two do and think about why they are setuid. Specifically, what kinds of (un)mounting are non-root users allowed to do according to the manual pages?
 
-```sh
+### Response
 Why mount and umount are setuid:
 Purpose of mount and umount:
 
@@ -524,13 +524,31 @@ Users can mount filesystems if the filesystem entry in /etc/fstab includes the u
 user: Allows a non-root user to mount a specific filesystem.
 users: Any user can mount and unmount the filesystem.
 Example entry in /etc/fstab:
-```c
+```sh
 /dev/sdb1 /mnt/usb vfat user,noauto 0 0
 ```
 This allows non-root users to mount a USB drive with mount /mnt/usb.
-```
 
 Look up the `passwd` program in the manual pages.  Why might that program need to be setuid?
+
+### Response
+Why passwd is setuid:
+Purpose of passwd:
+
+The passwd command allows users to change their own passwords or administrators to change the password of other users.
+Why does it need setuid?
+
+Passwords are stored in a secure system file (/etc/shadow) that is only readable and writable by root.
+When a regular user runs passwd to change their password:
+The setuid bit allows the command to execute with root privileges temporarily to modify /etc/shadow.
+Without setuid, regular users wouldn’t have the permissions to update their own passwords.
+Security concerns:
+
+Programs with setuid are a common target for exploitation, so their implementation must be carefully written to avoid vulnerabilities like buffer overflows or privilege escalations.
+
+Summary:
+mount and umount: Setuid ensures non-root users can safely perform limited mounting/unmounting operations as allowed by system configurations.
+passwd: Setuid allows secure modification of the password database (/etc/shadow) by regular users.
 
 ## Sudo
 
