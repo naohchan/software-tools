@@ -187,6 +187,37 @@ Check, by using `su USERNAME` to log in as the different users, that:
   * `nigel` can view but not edit Brian's readme file; 
   * `vagrant` cannot list files in or enter Brian's home directory at all. What happens when you try?
 
+```sh
+brian@debian12:/home$ chmod +050 /home/brian
+
+brian@debian12:/home$ ls -la
+total 20
+drwxr-xr-x  5 root    root    4096 Nov 17 12:12 .
+drwxr-xr-x 19 root    root    4096 Nov 16 13:36 ..
+drwxr-x---  3 brian   users   4096 Nov 17 12:35 brian
+drwx------  3 nigel   nigel   4096 Nov 17 15:14 nigel
+drwx------  8 vagrant vagrant 4096 Nov 17 11:50 vagrant
+
+nigel@debian12:/home/brian$ ls
+readme.txt  test_1.txt  test_2.txt  test_3.txt  test_4.txt  test_5.txt
+nigel@debian12:/home/brian$ nano readme.txt
+
+vagrant@debian12:/home$ cd brian
+bash: cd: brian: Permission denied
+
+vagrant@debian12:/$ sudo su -
+root@debian12:~# cd /home/brian
+root@debian12:/home/brian# ls
+readme.txt  test_1.txt  test_2.txt  test_3.txt  test_4.txt  test_5.txt
+root@debian12:/home/brian# nano readme.txt
+
+```
+
+
+
+
+
+
 _Of course, vagrant can use sudo to get around all these restrictions. Permissions do not protect you from anyone who can become root._
 
 Also as `brian`, make a `private` subdirectory in your home folder that no-one but you can access (read, write or execute). Create a file `secret.txt` in there with `nano private/secret.txt` as user `brian` from Brian's home directory, and put something in it. Do not change any permissions on `secret.txt` itself.
