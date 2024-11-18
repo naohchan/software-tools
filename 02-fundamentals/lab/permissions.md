@@ -507,6 +507,29 @@ You might get some errors relating to `/proc` files, which you can ignore: these
 
 Apart from `message-brian`, you'll find a few files by default: `sudo`, `mount`, `umount` and `su`. The first one you already know; look up what the next two do and think about why they are setuid. Specifically, what kinds of (un)mounting are non-root users allowed to do according to the manual pages?
 
+```sh
+Why mount and umount are setuid:
+Purpose of mount and umount:
+
+mount: This command is used to attach file systems (e.g., disks, partitions, or network shares) to the file system hierarchy.
+umount: This command detaches file systems from the hierarchy.
+Why are they setuid?
+
+setuid allows a program to execute with the privileges of the file owner (usually root), regardless of who runs it. This is essential because mounting and unmounting filesystems typically require elevated privileges.
+Non-root user permissions:
+
+Non-root users can mount and unmount certain filesystems if the system is configured to allow it.
+From the manual pages (man mount):
+Users can mount filesystems if the filesystem entry in /etc/fstab includes the user or users option.
+user: Allows a non-root user to mount a specific filesystem.
+users: Any user can mount and unmount the filesystem.
+Example entry in /etc/fstab:
+```c
+/dev/sdb1 /mnt/usb vfat user,noauto 0 0
+```
+This allows non-root users to mount a USB drive with mount /mnt/usb.
+```
+
 Look up the `passwd` program in the manual pages.  Why might that program need to be setuid?
 
 ## Sudo
