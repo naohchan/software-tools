@@ -336,6 +336,165 @@ As Nigel (`su nigel`), go into Brian's home directory and run `./message-brian "
 
 Now run `ls -l` and notice that a `messages.txt` has appeared with owner and group `brian`. Check the contents with `cat messages.txt`. Although Nigel cannot create and edit files in Brian's home directory himself (he can't edit `messages.txt` for example, although he can read it), the program `message-brian` ran as Brian, which let it create the file. Nigel can send another message like this (`./message-brian "Hi again!"`), which gets appended to the file: try this out.
 
+
+```sh
+brian@debian12:~$ ls -l
+total 48
+-rwxr-xr-x 1 brian brian 16184 Nov 17 16:52 message-brian
+-rw-r--r-- 1 brian brian   542 Nov 17 16:51 message-brian.c
+drwxr--r-- 2 brian brian  4096 Nov 17 16:14 private
+-rw-r--r-- 1 brian users    26 Nov 17 15:59 readme.txt
+-rwxr--r-- 1 brian users     6 Nov 17 12:30 test_1.txt
+-rw-r--r-- 1 brian users     6 Nov 17 12:30 test_2.txt
+-rw-r--r-- 1 brian users     6 Nov 17 12:31 test_3.txt
+-rw-r--r-- 1 brian users     6 Nov 17 12:31 test_4.txt
+-rw-r--r-- 1 brian users     6 Nov 17 12:31 test_5.txt
+
+brian@debian12:~$ chmod u+s message-brian
+
+brian@debian12:~$ ls -l
+total 48
+-rwsr-xr-x 1 brian brian 16184 Nov 17 16:52 message-brian
+-rw-r--r-- 1 brian brian   542 Nov 17 16:51 message-brian.c
+drwxr--r-- 2 brian brian  4096 Nov 17 16:14 private
+-rw-r--r-- 1 brian users    26 Nov 17 15:59 readme.txt
+-rwxr--r-- 1 brian users     6 Nov 17 12:30 test_1.txt
+-rw-r--r-- 1 brian users     6 Nov 17 12:30 test_2.txt
+-rw-r--r-- 1 brian users     6 Nov 17 12:31 test_3.txt
+-rw-r--r-- 1 brian users     6 Nov 17 12:31 test_4.txt
+-rw-r--r-- 1 brian users     6 Nov 17 12:31 test_5.txt
+
+brian@debian12:~$ su nigel
+Password:
+
+nigel@debian12:/home/brian$ ls
+message-brian    private     test_1.txt  test_3.txt  test_5.txt
+message-brian.c  readme.txt  test_2.txt  test_4.txt
+
+nigel@debian12:/home/brian$ ./message-brian "Hi from Nigel!"
+
+nigel@debian12:/home/brian$ ls -l
+total 52
+-rwsr-xr-x 1 brian brian 16184 Nov 17 16:52 message-brian
+-rw-r--r-- 1 brian brian   542 Nov 17 16:51 message-brian.c
+-rw-r--r-- 1 brian nigel    15 Nov 17 16:54 messages.txt
+drwxr--r-- 2 brian brian  4096 Nov 17 16:14 private
+-rw-r--r-- 1 brian users    26 Nov 17 15:59 readme.txt
+-rwxr--r-- 1 brian users     6 Nov 17 12:30 test_1.txt
+-rw-r--r-- 1 brian users     6 Nov 17 12:30 test_2.txt
+-rw-r--r-- 1 brian users     6 Nov 17 12:31 test_3.txt
+-rw-r--r-- 1 brian users     6 Nov 17 12:31 test_4.txt
+-rw-r--r-- 1 brian users     6 Nov 17 12:31 test_5.txt
+
+nigel@debian12:/home/brian$ cat messages.txt
+Hi from Nigel!
+
+nigel@debian12:/home/brian$ nano messages.txt
+
+nigel@debian12:/home/brian$ ./message-brian "Hi again!"
+
+nigel@debian12:/home/brian$ ls -la
+total 76
+drwxr-x--- 4 brian users  4096 Nov 17 16:54 .
+drwxr-xr-x 5 root  root   4096 Nov 17 12:12 ..
+-rw-r--r-- 1 brian users   220 Nov 17 11:51 .bash_logout
+-rw-r--r-- 1 brian users  3520 Nov 17 11:51 .bashrc
+drwxr-xr-x 3 brian users  4096 Nov 17 12:30 .local
+-rwsr-xr-x 1 brian brian 16184 Nov 17 16:52 message-brian
+-rw-r--r-- 1 brian brian   542 Nov 17 16:51 message-brian.c
+-rw-r--r-- 1 brian nigel    25 Nov 17 17:02 messages.txt
+drwxr--r-- 2 brian brian  4096 Nov 17 16:14 private
+-rw-r--r-- 1 brian users   807 Nov 17 11:51 .profile
+-rw-r--r-- 1 brian users    26 Nov 17 15:59 readme.txt
+-rwxr--r-- 1 brian users     6 Nov 17 12:30 test_1.txt
+-rw-r--r-- 1 brian users     6 Nov 17 12:30 test_2.txt
+-rw-r--r-- 1 brian users     6 Nov 17 12:31 test_3.txt
+-rw-r--r-- 1 brian users     6 Nov 17 12:31 test_4.txt
+-rw-r--r-- 1 brian users     6 Nov 17 12:31 test_5.txt
+
+nigel@debian12:/home/brian$ nano messages.txt
+
+nigel@debian12:/home/brian$ su brian
+Password:
+
+brian@debian12:~$ ls -la
+total 76
+drwxr-x--- 4 brian users  4096 Nov 17 16:54 .
+drwxr-xr-x 5 root  root   4096 Nov 17 12:12 ..
+-rw-r--r-- 1 brian users   220 Nov 17 11:51 .bash_logout
+-rw-r--r-- 1 brian users  3520 Nov 17 11:51 .bashrc
+drwxr-xr-x 3 brian users  4096 Nov 17 12:30 .local
+-rwsr-xr-x 1 brian brian 16184 Nov 17 16:52 message-brian
+-rw-r--r-- 1 brian brian   542 Nov 17 16:51 message-brian.c
+-rw-r--r-- 1 brian nigel    25 Nov 17 17:02 messages.txt
+drwxr--r-- 2 brian brian  4096 Nov 17 16:14 private
+-rw-r--r-- 1 brian users   807 Nov 17 11:51 .profile
+-rw-r--r-- 1 brian users    26 Nov 17 15:59 readme.txt
+-rwxr--r-- 1 brian users     6 Nov 17 12:30 test_1.txt
+-rw-r--r-- 1 brian users     6 Nov 17 12:30 test_2.txt
+-rw-r--r-- 1 brian users     6 Nov 17 12:31 test_3.txt
+-rw-r--r-- 1 brian users     6 Nov 17 12:31 test_4.txt
+-rw-r--r-- 1 brian users     6 Nov 17 12:31 test_5.txt
+
+brian@debian12:~$ ./message-brian
+Usage: message-brian MESSAGE
+
+brian@debian12:~$ ls -la
+total 76
+drwxr-x--- 4 brian users  4096 Nov 17 16:54 .
+drwxr-xr-x 5 root  root   4096 Nov 17 12:12 ..
+-rw-r--r-- 1 brian users   220 Nov 17 11:51 .bash_logout
+-rw-r--r-- 1 brian users  3520 Nov 17 11:51 .bashrc
+drwxr-xr-x 3 brian users  4096 Nov 17 12:30 .local
+-rwsr-xr-x 1 brian brian 16184 Nov 17 16:52 message-brian
+-rw-r--r-- 1 brian brian   542 Nov 17 16:51 message-brian.c
+-rw-r--r-- 1 brian nigel    25 Nov 17 17:02 messages.txt
+drwxr--r-- 2 brian brian  4096 Nov 17 16:14 private
+-rw-r--r-- 1 brian users   807 Nov 17 11:51 .profile
+-rw-r--r-- 1 brian users    26 Nov 17 15:59 readme.txt
+-rwxr--r-- 1 brian users     6 Nov 17 12:30 test_1.txt
+-rw-r--r-- 1 brian users     6 Nov 17 12:30 test_2.txt
+-rw-r--r-- 1 brian users     6 Nov 17 12:31 test_3.txt
+-rw-r--r-- 1 brian users     6 Nov 17 12:31 test_4.txt
+-rw-r--r-- 1 brian users     6 Nov 17 12:31 test_5.txt
+
+brian@debian12:~$ nano messages.txt
+
+brian@debian12:~$ su nigel
+Password:
+
+nigel@debian12:/home/brian$ nano messages.txt
+
+nigel@debian12:/home/brian$ ./message-brian "Hi xd!"
+
+nigel@debian12:/home/brian$ nano messages.txt
+
+nigel@debian12:/home/brian$ su brian
+Password:
+
+brian@debian12:~$ ls -la
+total 76
+drwxr-x--- 4 brian users  4096 Nov 17 17:05 .
+drwxr-xr-x 5 root  root   4096 Nov 17 12:12 ..
+-rw-r--r-- 1 brian users   220 Nov 17 11:51 .bash_logout
+-rw-r--r-- 1 brian users  3520 Nov 17 11:51 .bashrc
+drwxr-xr-x 3 brian users  4096 Nov 17 12:30 .local
+-rwsr-xr-x 1 brian brian 16184 Nov 17 16:52 message-brian
+-rw-r--r-- 1 brian brian   542 Nov 17 16:51 message-brian.c
+-rw-r--r-- 1 brian nigel    35 Nov 17 17:05 messages.txt
+drwxr--r-- 2 brian brian  4096 Nov 17 16:14 private
+-rw-r--r-- 1 brian users   807 Nov 17 11:51 .profile
+-rw-r--r-- 1 brian users    26 Nov 17 15:59 readme.txt
+-rwxr--r-- 1 brian users     6 Nov 17 12:30 test_1.txt
+-rw-r--r-- 1 brian users     6 Nov 17 12:30 test_2.txt
+-rw-r--r-- 1 brian users     6 Nov 17 12:31 test_3.txt
+-rw-r--r-- 1 brian users     6 Nov 17 12:31 test_4.txt
+-rw-r--r-- 1 brian users     6 Nov 17 12:31 test_5.txt
+
+both can use it!
+
+```
+
 This shows how setuid programs can be used to allow other users to selectively perform specific tasks under a different user account.
 
 **Warning**: writing your own setuid programs is extremely dangerous if you don't know the basics of secure coding and hacking C programs, because a bug in such a program could let someone take over your user account. The absolute minimum you should know is the contents of our security units up to and including 4th year.
