@@ -213,11 +213,6 @@ root@debian12:/home/brian# nano readme.txt
 
 ```
 
-
-
-
-
-
 _Of course, vagrant can use sudo to get around all these restrictions. Permissions do not protect you from anyone who can become root._
 
 Also as `brian`, make a `private` subdirectory in your home folder that no-one but you can access (read, write or execute). Create a file `secret.txt` in there with `nano private/secret.txt` as user `brian` from Brian's home directory, and put something in it. Do not change any permissions on `secret.txt` itself.
@@ -227,6 +222,51 @@ Check as Nigel that you can see the folder itself, but not cd into it nor list t
 Using `ls -l` as Brian in both `~` and `~/private`, compare the entries for the files `~/readme.txt`, `~/private/secret.txt` and the folder `~/private`. Why do the groups of the two files differ?
 
 Note that, even though the secret file has read permissions for everyone by default, Nigel cannot read it. The rule is that you need permissions on the whole path from `/` to a file to be able to access it.
+
+```c
+brian@debian12:~$ ls -la
+total 52
+drwxr-x--- 4 brian users 4096 Nov 17 16:10 .
+drwxr-xr-x 5 root  root  4096 Nov 17 12:12 ..
+-rw-r--r-- 1 brian users  220 Nov 17 11:51 .bash_logout
+-rw-r--r-- 1 brian users 3520 Nov 17 11:51 .bashrc
+drwxr-xr-x 3 brian users 4096 Nov 17 12:30 .local
+drwxr-xr-x 2 brian brian 4096 Nov 17 16:14 private
+-rw-r--r-- 1 brian users  807 Nov 17 11:51 .profile
+-rw-r--r-- 1 brian users   26 Nov 17 15:59 readme.txt
+-rwxr--r-- 1 brian users    6 Nov 17 12:30 test_1.txt
+-rw-r--r-- 1 brian users    6 Nov 17 12:30 test_2.txt
+-rw-r--r-- 1 brian users    6 Nov 17 12:31 test_3.txt
+-rw-r--r-- 1 brian users    6 Nov 17 12:31 test_4.txt
+-rw-r--r-- 1 brian users    6 Nov 17 12:31 test_5.txt
+brian@debian12:~$ chmod -011 /home/brian/private
+
+brian@debian12:~$ ls -la
+total 52
+drwxr-x--- 4 brian users 4096 Nov 17 16:10 .
+drwxr-xr-x 5 root  root  4096 Nov 17 12:12 ..
+-rw-r--r-- 1 brian users  220 Nov 17 11:51 .bash_logout
+-rw-r--r-- 1 brian users 3520 Nov 17 11:51 .bashrc
+drwxr-xr-x 3 brian users 4096 Nov 17 12:30 .local
+drwxr--r-- 2 brian brian 4096 Nov 17 16:14 private
+-rw-r--r-- 1 brian users  807 Nov 17 11:51 .profile
+-rw-r--r-- 1 brian users   26 Nov 17 15:59 readme.txt
+-rwxr--r-- 1 brian users    6 Nov 17 12:30 test_1.txt
+-rw-r--r-- 1 brian users    6 Nov 17 12:30 test_2.txt
+-rw-r--r-- 1 brian users    6 Nov 17 12:31 test_3.txt
+-rw-r--r-- 1 brian users    6 Nov 17 12:31 test_4.txt
+-rw-r--r-- 1 brian users    6 Nov 17 12:31 test_5.txt
+
+brian@debian12:~$ ls -l ~/private/secret.txt
+-rw-r--r-- 1 brian brian 26 Nov 17 16:14 /home/brian/private/secret.txt
+
+brian@debian12:~$ ls -l ~/readme.txt
+-rw-r--r-- 1 brian users 26 Nov 17 15:59 /home/brian/readme.txt
+
+brian@debian12:~$ ls -l ~/private
+total 4
+-rw-r--r-- 1 brian brian 26 Nov 17 16:14 secret.txt
+```
 
 _This is another reminder that if you want to store private files on a lab machine, then put it in a folder that is only accessible to you. Other students can read your home directory by default, and they would be able to look at your work. This has led to plagiarism problems in the past, but good news: we keep logs and can usually figure out what happened! `:-)`._
 
