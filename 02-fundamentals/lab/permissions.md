@@ -256,7 +256,9 @@ drwxr--r-- 2 brian brian 4096 Nov 17 16:14 private
 -rw-r--r-- 1 brian users    6 Nov 17 12:31 test_3.txt
 -rw-r--r-- 1 brian users    6 Nov 17 12:31 test_4.txt
 -rw-r--r-- 1 brian users    6 Nov 17 12:31 test_5.txt
+```
 
+```sh
 brian@debian12:~$ ls -l ~/private/secret.txt
 -rw-r--r-- 1 brian brian 26 Nov 17 16:14 /home/brian/private/secret.txt
 
@@ -266,8 +268,23 @@ brian@debian12:~$ ls -l ~/readme.txt
 brian@debian12:~$ ls -l ~/private
 total 4
 -rw-r--r-- 1 brian brian 26 Nov 17 16:14 secret.txt
-```
 
+nigel@debian12:/home/brian$ ls
+private  readme.txt  test_1.txt  test_2.txt  test_3.txt  test_4.txt  test_5.txt
+
+nigel@debian12:/home/brian$ cd private
+bash: cd: private: Permission denied
+
+nigel@debian12:/home/brian$ cd ..
+
+nigel@debian12:/home$ cat /home/brian/private/secret.txt
+cat: /home/brian/private/secret.txt: Permission denied
+
+nigel@debian12:/home$ cd
+
+nigel@debian12:~$ cat /home/brian/private/secret.txt
+cat: /home/brian/private/secret.txt: Permission denied
+```
 _This is another reminder that if you want to store private files on a lab machine, then put it in a folder that is only accessible to you. Other students can read your home directory by default, and they would be able to look at your work. This has led to plagiarism problems in the past, but good news: we keep logs and can usually figure out what happened! `:-)`._
 
 _Altenatively you could remove permissions from everyone else on your home directory there, but this prevents you from being able to share files in specific folders that you do want to share with other students._
