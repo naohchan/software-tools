@@ -19,11 +19,41 @@ or `sqlite3 Census.db`) or use the `ATTACH DATABASE` command to load them all at
 ## Easier Questions
 ### Elections
 
+```bash
+vagrant up
+vagrant ssh
+wget https://github.com/cs-uob/software-tools/raw/refs/heads/main/09-sql/lab/Census.db
+wget https://github.com/cs-uob/software-tools/raw/refs/heads/main/09-sql/lab/Elections.db
+sudo apt install sqlite3
+sqlite3 Elections.db
+```
+
 
 1. List the names of all parties that stood in the election, ordered alphabetically by name.
+```sqlite3
+sqlite> SELECT name FROM Party ORDER BY name
+   ...> ;
+Conservative
+Green
+Independent
+Independents for Bristol
+Labour
+Liberal Democrat
+Respect
+Trade Unionists and Socialists Against Cuts
+UKIP
+```
 
 2. List the names of all parties that stood in the Bedminster ward.
-
+```sqlite3
+sqlite> SELECT DISTINCT p.name FROM Party p JOIN Candidate c on p.id = c.party JOIN Ward w ON c.ward  =w.id WHERE w.name = 'Bedminster' ORDER BY p.name
+   ...> ;
+Conservative
+Green
+Labour
+Liberal Democrat
+Trade Unionists and Socialists Against Cuts
+```
 3. How many votes did Labour get in the Stockwood ward?
 
 4. List the names, parties and number of votes obtained for all candidates in the Southville ward. Order the candidates by number of votes obtained descending (winner comes first).
