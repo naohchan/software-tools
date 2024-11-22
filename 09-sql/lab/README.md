@@ -42,6 +42,35 @@ or `sqlite3 Census.db`) or use the `ATTACH DATABASE` command to load them all at
 ### Elections
 
 1. How many votes were cast in all of Bristol in the 2014 elections?
+
+```ssh
+vagrant@debian12:~$ sqlite3 Census.db
+
+qlite> .tables
+
+Country     County      Occupation  Region      Statistic   Ward      
+sqlite> ATTACH DATABASE 'Elections.db' AS e
+   ...> ;
+
+sqlite> .tables
+Country      Occupation   Statistic    e.Candidate  e.Ward     
+County       Region       Ward         e.Party    
+
+sqlite> SELECT name from 'Party' ORDER BY name
+   ...> ;
+Conservative
+Green
+Independent
+Independents for Bristol
+Labour
+Liberal Democrat
+Respect
+Trade Unionists and Socialists Against Cuts
+UKIP
+
+
+```
+
 2. How many votes were cast in the 'Windmill Hill' ward and what percentage of the electorate in this ward does this represent? Your statement should produce a table with one row and two columns called 'votes' and 'percentage'.
 3. List the names, parties and percentage of votes obtained for all candidates in the Southville ward. Order the candidates by percentage of votes obtained descending.
 4. How successful (in % of votes cast) was the Conservative party in each ward?
