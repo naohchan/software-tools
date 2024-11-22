@@ -51,6 +51,52 @@ UKIP
 
 2. List the names of all parties that stood in the Bedminster ward.
 
+```ssh
+sqlite>
+
+SELECT DISTINCT p.name
+FROM Party p
+JOIN Candidate c on p.id = c.party
+JOIN Ward w ON c.ward  =w.id
+WHERE w.name = 'Bedminster' ORDER BY p.name
+
+
+
+   ...> ;
+Conservative
+Green
+Labour
+Liberal Democrat
+Trade Unionists and Socialists Against Cuts
+
+or
+
+sqlite> SELECT DISTINCT name
+FROM Party
+WHERE id IN (
+    SELECT party
+    FROM Candidate
+    WHERE ward = (SELECT id FROM Ward WHERE name = 'Bedminster')
+)
+ORDER BY name ASC;
+Conservative
+Green
+Labour
+Liberal Democrat
+Trade Unionists and Socialists Against Cuts
+
+
+
+
+
+
+
+```
+
+
+
+
+
 3. How many votes did Labour get in the Stockwood ward?
 
 4. List the names, parties and number of votes obtained for all candidates in the Southville ward. Order the candidates by number of votes obtained descending (winner comes first).
