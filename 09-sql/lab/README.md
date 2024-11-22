@@ -69,7 +69,7 @@ Labour
 Liberal Democrat
 Trade Unionists and Socialists Against Cuts
 
-or
+#### OR
 
 sqlite> SELECT DISTINCT name
 FROM Party
@@ -79,17 +79,12 @@ WHERE id IN (
     WHERE ward = (SELECT id FROM Ward WHERE name = 'Bedminster')
 )
 ORDER BY name ASC;
+
 Conservative
 Green
 Labour
 Liberal Democrat
 Trade Unionists and Socialists Against Cuts
-
-
-
-
-
-
 
 ```
 
