@@ -53,6 +53,16 @@ Green
 Labour
 Liberal Democrat
 Trade Unionists and Socialists Against Cuts
+
+or
+
+sqlite> SELECT DISTINCT name
+FROM Party
+WHERE id IN (
+    SELECT party
+    FROM Candidate
+    WHERE ward = (SELECT id FROM Ward WHERE name = 'Bedminster')
+
 ```
 3. How many votes did Labour get in the Stockwood ward?
 
