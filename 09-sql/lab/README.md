@@ -69,6 +69,7 @@ Trade Unionists and Socialists Against Cuts
 #### OR
 
 ```ssh
+
 sqlite> SELECT DISTINCT name
 FROM Party
 WHERE id IN (
@@ -76,13 +77,14 @@ WHERE id IN (
     FROM Candidate
     WHERE ward = (SELECT id FROM Ward WHERE name = 'Bedminster')
 )
-ORDER BY name ASC;
-
+ORDER BY name ASC
+   ...> ;
 Conservative
 Green
 Labour
 Liberal Democrat
 Trade Unionists and Socialists Against Cuts
+
 ```
 
 
