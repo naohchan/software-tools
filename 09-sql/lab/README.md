@@ -63,7 +63,8 @@ WHERE id IN (
     FROM Candidate
     WHERE ward = (SELECT id FROM Ward WHERE name = 'Bedminster')
 )
-ORDER BY name ASC;
+ORDER BY name ASC
+   ...> ;
 Conservative
 Green
 Labour
