@@ -52,25 +52,21 @@ UKIP
 2. List the names of all parties that stood in the Bedminster ward.
 
 ```ssh
-sqlite>
-
-SELECT DISTINCT p.name
+sqlite>SELECT DISTINCT p.name
 FROM Party p
 JOIN Candidate c on p.id = c.party
 JOIN Ward w ON c.ward  =w.id
 WHERE w.name = 'Bedminster' ORDER BY p.name
-
-
-
    ...> ;
+
 Conservative
 Green
 Labour
 Liberal Democrat
 Trade Unionists and Socialists Against Cuts
-
+```
 #### OR
-
+```ssh
 sqlite> SELECT DISTINCT name
 FROM Party
 WHERE id IN (
@@ -85,7 +81,6 @@ Green
 Labour
 Liberal Democrat
 Trade Unionists and Socialists Against Cuts
-
 ```
 
 
