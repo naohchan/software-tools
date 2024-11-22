@@ -22,26 +22,6 @@ or `sqlite3 Census.db`) or use the `ATTACH DATABASE` command to load them all at
 
 1. List the names of all parties that stood in the election, ordered alphabetically by name.
 
-2. List the names of all parties that stood in the Bedminster ward.
-
-3. How many votes did Labour get in the Stockwood ward?
-
-4. List the names, parties and number of votes obtained for all candidates in the Southville ward. Order the candidates by number of votes obtained descending (winner comes first).
-
-5. List the name, party and number of votes obtained for the winner only in the Knowle ward.
-
-## Census
-
-1. The university of Bristol is situated in the Cabot ward (ward names are not always distinct, but this one is). Find the names and codes of the CLU, region and country containing the Cabot ward (CLU = county level unit = "row in County table").
-
-2. Find the number of women managers in the Cabot ward. 
-
-3. For the Stoke Bishop ward, list the 9 occupation class names and the number of men in each occupation. Your table should have two columns called name and number. 
-
-## Harder Questions
-### Elections
-
-1. How many votes were cast in all of Bristol in the 2014 elections?
 
 ```ssh
 vagrant@debian12:~$ sqlite3 Census.db
@@ -67,11 +47,46 @@ Liberal Democrat
 Respect
 Trade Unionists and Socialists Against Cuts
 UKIP
+```
+
+2. List the names of all parties that stood in the Bedminster ward.
+
+3. How many votes did Labour get in the Stockwood ward?
+
+4. List the names, parties and number of votes obtained for all candidates in the Southville ward. Order the candidates by number of votes obtained descending (winner comes first).
+
+5. List the name, party and number of votes obtained for the winner only in the Knowle ward.
+
+## Census
+
+1. The university of Bristol is situated in the Cabot ward (ward names are not always distinct, but this one is). Find the names and codes of the CLU, region and country containing the Cabot ward (CLU = county level unit = "row in County table").
+
+2. Find the number of women managers in the Cabot ward. 
+
+3. For the Stoke Bishop ward, list the 9 occupation class names and the number of men in each occupation. Your table should have two columns called name and number. 
+
+## Harder Questions
+### Elections
+
+1. How many votes were cast in all of Bristol in the 2014 elections?
+
+
+2. How many votes were cast in the 'Windmill Hill' ward and what percentage of the electorate in this ward does this represent? Your statement should produce a table with one row and two columns called 'votes' and 'percentage'.
+
+
+```ssh
+sqlite> SELECT name from 'Ward' ORDER BY name
+   ...> ;
+Abbey
+Abbey
+
+
 
 
 ```
 
-2. How many votes were cast in the 'Windmill Hill' ward and what percentage of the electorate in this ward does this represent? Your statement should produce a table with one row and two columns called 'votes' and 'percentage'.
+
+
 3. List the names, parties and percentage of votes obtained for all candidates in the Southville ward. Order the candidates by percentage of votes obtained descending.
 4. How successful (in % of votes cast) was the Conservative party in each ward?
 5. Which rank did Labour end up in the 'Whitchurch Park' ward? Your statement should produce a table with a single row and column containing the answer as a number. You can assume no ties.
