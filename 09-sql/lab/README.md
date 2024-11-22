@@ -65,7 +65,9 @@ Labour
 Liberal Democrat
 Trade Unionists and Socialists Against Cuts
 ```
+
 #### OR
+
 ```ssh
 sqlite> SELECT DISTINCT name
 FROM Party
