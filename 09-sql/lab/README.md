@@ -62,6 +62,13 @@ WHERE id IN (
     SELECT party
     FROM Candidate
     WHERE ward = (SELECT id FROM Ward WHERE name = 'Bedminster')
+)
+ORDER BY name ASC;
+Conservative
+Green
+Labour
+Liberal Democrat
+Trade Unionists and Socialists Against Cuts
 
 ```
 3. How many votes did Labour get in the Stockwood ward?
