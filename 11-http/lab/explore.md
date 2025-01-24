@@ -36,7 +36,7 @@ wget localhost:8000
 
 It should time out after a couple of seconds (or instantly) with "failed" and
 some error message. This is the expected result, and if the above command fails
-then you can proceed on to the section ###'A basic HTTP server and client' without
+then you can proceed on to the section *'A basic HTTP server and client'* without
 having to do anything else.
 
 If however it succeeds (shows "Connected" or "200 OK" anywhere), then someone or
