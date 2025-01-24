@@ -16,7 +16,6 @@ in the main block (just before the `config.vm.provision` line will do), then res
 
 You can now start the VM, run a server inside the VM, and connect to it from the browser on the lab machine.
 
-
 ### Primero metele
 
 ```
@@ -73,6 +72,12 @@ Vagrantfile.
 Open a terminal on the machine where you want to run the server, and download
 the file [http-response](./http-response) to the folder where your terminal is
 open (for example with `wget`). Then run the (non-terminating) command
+
+### Nota :
+
+Lo que realmente funciona s ver el raw de `http-response` para copiar el contenido
+y meterle un 'nano http-response' dentro del terminal debian, esto hara que sea facil.
+
 
 ```
 nc -l -p 8000 < http-response
