@@ -17,6 +17,12 @@ in the main block (just before the `config.vm.provision` line will do), then res
 You can now start the VM, run a server inside the VM, and connect to it from the browser on the lab machine.
 
 
+Primero metele:
+
+vagrant up
+vagrant ssh
+
+
 ## Before you start
 
 To avoid an annoying problem, before we run our own server we are going to check that no-one else is already using the TCP port we want.
