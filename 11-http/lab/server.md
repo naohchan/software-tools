@@ -23,6 +23,45 @@ Under `src/main/java` is the source code. This is only two files, but of course 
 
 `Controller.java` is the interesting one: in application development, _Model - View - Controller_ is one of several patterns to structure an application, where a _Controller_ is a piece of code that does the heavy lifting part, for example replying to a HTTP request.
 
+```
+package softwaretools.server01;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpHeaders;
+
+@RestController
+public class Controller {
+
+    @Autowired
+    ResourceLoader loader;
+
+    @GetMapping("/")
+    public ResponseEntity<String> mainPage() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.set(HttpHeaders.CONTENT_TYPE, "text/plain");
+
+        return new ResponseEntity<String>("Hello from Spring", headers, 200);
+    }
+
+    @GetMapping("/html")
+    public ResponseEntity<Resource> htmlPage() {
+        Resource htmlfile = loader.getResource("classpath:web/page.html");
+        return ResponseEntity
+            .status(200)
+            .header(HttpHeaders.CONTENT_TYPE, "text/html")
+            .body(htmlfile);
+    }
+}
+
+
+```
+
+
 Spring works with annotations, special classes whose name begins with an `@` sign. When the server starts, spring scans all files for annotations and sets up code to deal with them. Here we can see:
 
   - `@SpringBootApplication` (on the `Server01Application` class) tells spring that this is the main file to run.
