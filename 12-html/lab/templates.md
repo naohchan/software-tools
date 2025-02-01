@@ -132,7 +132,43 @@ The main page is served up as before as a HTML file from the classpath in `src/m
 </html>
 
 ```
+### src/main/resources/templates
+### unit.html
+```
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Unit details</title>
+    </head>
+    <body>
+        <h1>Unit details</h1>
+        <p><strong>Unit name:</strong> <span th:text="${unit.title}"></span></p>
+        <p><strong>Unit code:</strong> <span th:text="${unit.code}"></span></p>
+    </body>
+</html>
 
+```
+### units.html
+```html
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>List of Units</title>
+    </head>
+    <body>
+        <h1>List of units</h1>
+        <ul th:each="unit : ${units}">
+            <li>
+                <a th:href="'/unit/' + ${unit.code}" th:text="${unit.code}"></a>
+                <span th:text="${unit.title}"></span>
+            </li>
+        </ul>
+    </body>
+</html>
+
+```
 Have a look at the process when `/units` is requested. 
   - First, the method `unitsPage` accesses the database and loads the list of units.
   - Next, it creates a `Context`, a thymeleaf object that lets you pass values to a template. Here we add one value with key `units`, containing the list of units.
@@ -148,6 +184,7 @@ The template itself is in `src/main/resources/units.html`. Anything with a `th:`
     </li>
 </ul>
 ```
+
 
 The `th:each` attribute is the equivalent of a for loop in Java, in this case `for (Unit unit : units)` - in thymeleaf, unlike plain Java, you do not need to give the loop variable a type but you do need to use the `${...}` syntax whenever you are accessing a variable from the context. The `th:each` attribute renders its own tag once (in this case `<ul>`) and then renders everything inside the tag once per pass through the loop, so you get one `<li>` item per unit.
 
