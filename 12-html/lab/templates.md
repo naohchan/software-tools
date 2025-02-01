@@ -283,6 +283,7 @@ public ResponseEntity<String> studentDetailPage(@PathVariable int id) {
         .header(HttpHeaders.CONTENT_TYPE, "text/html")
         .body(templates.render("student.html", cx));
 }
+
 ```
 
 ****
