@@ -206,6 +206,41 @@ After this, we call thymeleaf on the `unit.html` template (this is the one witho
 
 **Basic exercise:** Rewrite the units list page to show the units in a table instead of a list. The table should have one row per unit and three columns: the first column should be the unit code, the second should be the unit title, and the third column should contain a link with text "details" that takes you to the details page for the unit. Also make a header row in the table with headings 'code', 'title' and 'link'. (This is purely a HTML and templating exercise, you do not need to change any Java code for this.)
 
+**Solution**
+
+In units.html
+```html
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>List of Units</title>
+    </head>
+    <body>
+        <h1>List of units</h1>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Code</th>
+                    <th>Title</th>
+                    <th>Link</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="unit : ${units}">
+                    <td th:text="${unit.code}"></td>
+                    <td th:text="${unit.title}"></td>
+                    <td>
+                        <a th:href="'/unit/' + ${unit.code}">Details</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>
+
+```
+
 **Intermediate exercise:** Implement controller methods and templates for listing all students and viewing an individual student's details, analogous to the ones for units (you can choose whether you make a list or a table for the students - there are currently only two). You only need to show a student's id and name for now, not the grades. Note that the id is an integer, not a string. You can copy-paste the Unit controller code and templates and make the necessary changes to show students instead, but make sure you understand what the bits do that you're changing. The student class is in the `src/main/java/softwaretools/server02/model` folder.
 
 **Intermediate exercise:** The student class contains a method `getGrades()` that returns a list of pairs (unit, grade). The unit is a unit object, and the grade is an integer. On your student details page, make a table listing the titles and codes of all the units the student has taken, and the grades they got. 
