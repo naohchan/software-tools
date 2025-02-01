@@ -244,9 +244,20 @@ In units.html
 **Intermediate exercise:** Implement controller methods and templates for listing all students and viewing an individual student's details, analogous to the ones for units (you can choose whether you make a list or a table for the students - there are currently only two). You only need to show a student's id and name for now, not the grades. Note that the id is an integer, not a string. You can copy-paste the Unit controller code and templates and make the necessary changes to show students instead, but make sure you understand what the bits do that you're changing. The student class is in the `src/main/java/softwaretools/server02/model` folder.
 
 **Solution**
+
 There are three steps
 
 **First: Update Controller.java**
+
+You have to edit the Controller.java file, in the header don't forget to write
+
+```html
+import softwaretools.server02.model.Student;
+
+```
+
+By doing this you are going to avoid error as missing student.java class.
+Now add these code to the file.
 
 ```html
 @GetMapping("/students")
@@ -287,6 +298,7 @@ public ResponseEntity<String> studentDetailPage(@PathVariable int id) {
 ```
 
 **Second: create students.html**
+
 Now create students.html in src/main/resources/templates/
 
 ```html
