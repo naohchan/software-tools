@@ -353,3 +353,256 @@ mvn spring-boot:run
 
 
 **Intermediate exercise:** The student class contains a method `getGrades()` that returns a list of pairs (unit, grade). The unit is a unit object, and the grade is an integer. On your student details page, make a table listing the titles and codes of all the units the student has taken, and the grades they got. 
+
+**Solution**
+
+There are three steps to run 
+
+**First: update student.java**
+```java
+package softwaretools.server02.model;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
+public class Student {
+    private int id;
+    private String name;
+    private final Map<Unit, Integer> grades;
+    
+    public Student(int id, String name) {
+        this.id = id;
+        this.name = name;
+        this.grades = new HashMap<>();
+    }
+
+    public void addGrade(Unit unit, Integer grade) {
+        this.grades.put(unit, grade);
+    }
+    
+    public List<Pair<Unit, Integer>> getGrades() {
+        List<Pair<Unit, Integer>> list = new ArrayList<>();
+        for (Map.Entry<Unit, Integer> entry : grades.entrySet()) {
+            list.add(new Pair<>(entry.getKey(), entry.getValue()));
+        }
+        return list;
+    }
+    
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 53 * hash + this.id;
+        hash = 53 * hash + Objects.hashCode(this.name);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Student other = (Student) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        return true;
+    }
+}
+
+```
+**Second: update Controller.java**
+```java
+package softwaretools.server02;
+
+import softwaretools.server02.model.Student;
+import softwaretools.server02.model.Pair;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.thymeleaf.context.Context;
+import softwaretools.server02.model.Database;
+import softwaretools.server02.model.Unit;
+import softwaretools.server02.model.internal.DatabaseImpl;
+import java.util.List;
+
+@RestController
+public class Controller {
+
+    @Autowired
+    ResourceLoader loader;
+    
+    @Autowired
+    Templates templates;
+
+    @GetMapping("/")
+    public ResponseEntity<Resource> mainPage() {
+        Resource htmlfile = loader.getResource("classpath:web/index.html");
+        return ResponseEntity
+            .status(200)
+            .header(HttpHeaders.CONTENT_TYPE, "text/html")
+            .body(htmlfile);
+    }
+
+    @GetMapping("/units")
+    public String unitsPage() {
+        Database d = new DatabaseImpl();
+        List<Unit> units = d.getUnits();
+        Context cx = new Context();
+        cx.setVariable("units", units);
+        return templates.render("units.html", cx);
+    }
+    
+    @GetMapping("/unit/{code}")
+    public ResponseEntity<String> 
+    unitDetailPage(@PathVariable String code) {
+        Database d = new DatabaseImpl();
+        Unit u = null;
+        for (Unit uu : d.getUnits()) {
+            if (uu.getCode().equals(code)) {
+                u = uu;
+                break;
+            }
+        }
+        
+        if (u == null) {
+            return ResponseEntity
+                .status(404)
+                .header(HttpHeaders.CONTENT_TYPE, "text/plain")
+                .body("No unit with code " + code);
+        }
+        
+        Context cx = new Context();
+        cx.setVariable("unit", u);
+        return ResponseEntity
+            .status(200)
+            .header(HttpHeaders.CONTENT_TYPE, "text/html")
+            .body(templates.render("unit.html", cx));
+    }
+
+    @GetMapping("/students")
+    public String studentsPage() {
+        Database d = new DatabaseImpl();
+        List<Student> students = d.getStudents();
+        Context cx = new Context();
+        cx.setVariable("students", students);
+        return templates.render("students.html", cx);
+    }
+
+    @GetMapping("/student/{id}")
+    public ResponseEntity<String> studentDetailPage(@PathVariable int id) {
+        Database d = new DatabaseImpl();
+        Student s = null;
+        for (Student student : d.getStudents()) {
+            if (student.getId() == id) {
+                s = student;
+                break;
+            }
+        }
+
+        if (s == null) {
+            return ResponseEntity
+                .status(404)
+                .header(HttpHeaders.CONTENT_TYPE, "text/plain")
+                .body("No student with ID " + id);
+        }
+
+    	// Obtención de las calificaciones
+    	List<Pair<Unit, Integer>> grades = s.getGrades();
+
+    	// Creación del contexto para Thymeleaf
+        Context cx = new Context();
+        cx.setVariable("student", s);
+	cx.setVariable("grades", grades);  // Añadimos las calificaciones
+
+        return ResponseEntity
+         .status(200)
+        .header(HttpHeaders.CONTENT_TYPE, "text/html")
+        .body(templates.render("student.html", cx));
+    }
+
+}
+
+```
+**Third: update student.html**
+
+```html
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Student Details</title>
+</head>
+<body>
+    <h1>Student: <span th:text="${student.name}"></span></h1>
+
+    <h2>Grades</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Unit Title</th>
+                <th>Unit Code</th>
+                <th>Grade</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="grade : ${grades}">
+                <td th:text="${grade.getFirst().getTitle()}"></td> <!-- Title of the Unit -->
+                <td th:text="${grade.getFirst().getCode()}"></td> <!-- Code of the Unit -->
+                <td th:text="${grade.getSecond()}"></td> <!-- Grade -->
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
