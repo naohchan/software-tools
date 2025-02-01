@@ -243,4 +243,58 @@ In units.html
 
 **Intermediate exercise:** Implement controller methods and templates for listing all students and viewing an individual student's details, analogous to the ones for units (you can choose whether you make a list or a table for the students - there are currently only two). You only need to show a student's id and name for now, not the grades. Note that the id is an integer, not a string. You can copy-paste the Unit controller code and templates and make the necessary changes to show students instead, but make sure you understand what the bits do that you're changing. The student class is in the `src/main/java/softwaretools/server02/model` folder.
 
+**Solution**
+There are three steps
+
+**First: Update Controller.java**
+
+```html
+@GetMapping("/students")
+public String studentsPage() {
+    Database d = new DatabaseImpl();
+    List<Student> students = d.getStudents();
+    Context cx = new Context();
+    cx.setVariable("students", students);
+    return templates.render("students.html", cx);
+}
+
+@GetMapping("/student/{id}")
+public ResponseEntity<String> studentDetailPage(@PathVariable int id) {
+    Database d = new DatabaseImpl();
+    Student s = null;
+    for (Student student : d.getStudents()) {
+        if (student.getId() == id) {
+            s = student;
+            break;
+        }
+    }
+
+    if (s == null) {
+        return ResponseEntity
+            .status(404)
+            .header(HttpHeaders.CONTENT_TYPE, "text/plain")
+            .body("No student with ID " + id);
+    }
+
+    Context cx = new Context();
+    cx.setVariable("student", s);
+    return ResponseEntity
+        .status(200)
+        .header(HttpHeaders.CONTENT_TYPE, "text/html")
+        .body(templates.render("student.html", cx));
+}
+```
+
+****
+
+****
+
+
+
+
+
+
+
+
+
 **Intermediate exercise:** The student class contains a method `getGrades()` that returns a list of pairs (unit, grade). The unit is a unit object, and the grade is an integer. On your student details page, make a table listing the titles and codes of all the units the student has taken, and the grades they got. 
