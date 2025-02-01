@@ -321,14 +321,35 @@ Now create students.html in src/main/resources/templates/
 
 ```
 
-****
+**Second: create student.html**
 
+Now create student.html in src/main/resources/templates/
 
+```html
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Student details</title>
+    </head>
+    <body>
+        <h1>Student details</h1>
+        <p><strong>Student ID:</strong> <span th:text="${student.id}"></span></p>
+        <p><strong>Student Name:</strong> <span th:text="${student.name}"></span></p>
+    </body>
+</html>
 
+```
 
+To make sure everything is set, run these two commands
 
+```sh
+mvn clean compile
+```
 
-
+```sh
+mvn spring-boot:run
+```
 
 
 **Intermediate exercise:** The student class contains a method `getGrades()` that returns a list of pairs (unit, grade). The unit is a unit object, and the grade is an integer. On your student details page, make a table listing the titles and codes of all the units the student has taken, and the grades they got. 
