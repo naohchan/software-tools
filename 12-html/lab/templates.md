@@ -286,7 +286,28 @@ public ResponseEntity<String> studentDetailPage(@PathVariable int id) {
 
 ```
 
-****
+**Second: create students.html**
+Now create students.html in src/main/resources/templates/
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>List of Students</title>
+    </head>
+    <body>
+        <h1>List of Students</h1>
+        <ul th:each="student : ${students}">
+            <li>
+                <a th:href="'/student/' + ${student.id}" th:text="${student.id}"></a>
+                <span th:text="${student.name}"></span>
+            </li>
+        </ul>
+    </body>
+</html>
+
+```
 
 ****
 
