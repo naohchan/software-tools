@@ -10,7 +10,7 @@ The application is a very minimal university database with students, units and g
 
 The file `Templates.java` sets up the [thymeleaf](https://www.thymeleaf.org/) template engine. The `@Component` annotation tells spring to manage this class; other classes that need templates can request it by declaring a field of the right class with `@Autowired`, as you can see in `Controller.java`.
 
-###Controller.java
+### Controller.java
 ```
 package softwaretools.server02;
 
@@ -85,7 +85,7 @@ public class Controller {
 
 
 ```
-###Templajes.java
+### Templajes.java
 ```
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
