@@ -10,6 +10,36 @@ The application is a very minimal university database with students, units and g
 
 The file `Templates.java` sets up the [thymeleaf](https://www.thymeleaf.org/) template engine. The `@Component` annotation tells spring to manage this class; other classes that need templates can request it by declaring a field of the right class with `@Autowired`, as you can see in `Controller.java`.
 
+```
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
+import org.thymeleaf.spring5.SpringTemplateEngine;
+import org.thymeleaf.templatemode.TemplateMode;
+import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
+
+@Component("templates")
+public class Templates {
+    private final TemplateEngine engine;
+
+    public Templates() {
+        ClassLoaderTemplateResolver resolver = new ClassLoaderTemplateResolver();
+        resolver.setTemplateMode(TemplateMode.HTML);
+        resolver.setPrefix("templates/");
+        engine = new SpringTemplateEngine();
+        engine.setTemplateResolver(resolver);
+    }
+
+    public String render(String template, Context c) {
+        return this.engine.process(template, c);
+    }
+}
+
+```
+
+
+
+
+
 The main page is served up as before as a HTML file from the classpath in `src/main/resources/web`.
 
 Have a look at the process when `/units` is requested. 
