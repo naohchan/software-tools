@@ -112,11 +112,26 @@ public class Templates {
 
 ```
 
-
-
-
-
 The main page is served up as before as a HTML file from the classpath in `src/main/resources/web`.
+
+### index.html
+```
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>University Database</title>
+    </head>
+    <body>
+        <h1>University Database</h1>
+        <ul>
+            <li><a href="/students">Students</a></li>
+            <li><a href="/units">Units</a></li>
+        </ul>
+    </body>
+</html>
+
+```
 
 Have a look at the process when `/units` is requested. 
   - First, the method `unitsPage` accesses the database and loads the list of units.
